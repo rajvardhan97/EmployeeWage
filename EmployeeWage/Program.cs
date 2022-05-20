@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static EmployeeWage.Company;
+using static EmployeeWage.Companies;
 
 namespace EmployeeWage
 {
