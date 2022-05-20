@@ -57,10 +57,9 @@ namespace Employee
         }
         public void Monthly()
         {
-            int DayNum = 1, EmpMonthly = 0;
-            while (DayNum <= 20)
+            int DayNum = 1, Hours = 0, TotalHrs = 0, TotalWageDay = 0, MonthlyWage;
+            while (DayNum <= 20 || Hours <= 100)
             {
-
                 Random TimeCheck = new Random();
                 int CheckTime = TimeCheck.Next(0, 3);
                 switch (CheckTime)
@@ -80,16 +79,19 @@ namespace Employee
 
                         break;
                 }
-                int EmpWageDaily = Emphour * wagehour;
-                EmpMonthly += EmpWageDaily;
+                TotalWageDay = wagehour * Emphour;
+                Hours += TotalHrs;
                 DayNum++;
+
             }
-            int Wage = Emphour * wagehour;
-            Console.WriteLine("Monthly Wage is " + EmpMonthly);
+            MonthlyWage = Hours * TotalWageDay;
+            Console.WriteLine("Total Monthly Wage is " + MonthlyWage);
         }
 
-    
-    public static void Main(String[] args)
+
+
+
+        public static void Main(String[] args)
         {
             Console.WriteLine("Press 1 to check employee status\n Press 2 to find daily wage \n press 3 to check if employee is part time and wage" +
                 "\n Press 4 to find monthy wage");
