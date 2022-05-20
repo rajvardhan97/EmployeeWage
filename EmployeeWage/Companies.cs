@@ -24,7 +24,6 @@ namespace EmployeeWage
             this.maxworkhour = maxworkhour;
             this.maxworkdays = maxworkdays;
         }
-
     }
     class TotalEmployeeWage
     {
@@ -34,11 +33,22 @@ namespace EmployeeWage
         public double DailyWage = 0;
         public double TotalWage = 0;
         Dictionary<String, Companies> Company = new Dictionary<string, Companies>();
-  
+        public string[] Name;
+        public int IndexValue = 0;
+
+        public TotalEmployeeWage(int number)
+        {
+            Company = new Dictionary<string, Companies>();
+            Name = new string[2 * number];
+        }
+
         public void AddCompany(String CompanyName, int WageHour, int FullTime, int PartTime, int maxworkhour, int maxworkdays)
         {
             Companies companies = new Companies(CompanyName, WageHour, FullTime, PartTime, maxworkhour, maxworkdays);
             Company.Add(CompanyName, companies);
+            Name[IndexValue] = CompanyName;
+            IndexValue++;
+
         }
 
 
@@ -75,18 +85,17 @@ namespace EmployeeWage
                     days++;
                     TotalHours += WorkingHours;
                 }
-                
-                Dictionary<String, double> WagesEmp = new Dictionary<string, double>();
-                WagesEmp.Add(CompanyName, TotalWage);
-             
-                foreach (KeyValuePair<string, double> dict in WagesEmp)
-                {
-                    Console.WriteLine("Company : {0} | Monthly Wage : {1}", dict.Key, dict.Value);
-                }
             }
-            else
+            Name[IndexValue] = Convert.ToString(TotalWage);
+            IndexValue++;
+
+        }
+
+        public void ViewWage()
+        {
+            for (int i = 0; i < Name.Length; i += 2)
             {
-                Console.WriteLine("Employee is absent");
+                Console.WriteLine("Monthly Wage for {0} is {1} ", Name[i], Name[i + 1]);
             }
         }
     }

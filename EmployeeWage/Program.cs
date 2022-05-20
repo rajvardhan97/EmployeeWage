@@ -11,7 +11,7 @@ namespace EmployeeWage
     {
         public static void Main(String[] args)
         {
-            TotalEmployeeWage EmployeeWage = new TotalEmployeeWage();
+            TotalEmployeeWage EmployeeWage = new TotalEmployeeWage(4);
 
             EmployeeWage.AddCompany("Reliance", 30, 10, 4, 100, 20);
             EmployeeWage.MonthlyWages("Reliance");
