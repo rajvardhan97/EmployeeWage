@@ -55,7 +55,7 @@ namespace EmployeeWage
             Companies companies = new Companies(CompanyName, WageHour, FullTime, PartTime, maxworkhour, maxworkdays);
             Company.Add(CompanyName, companies);
             Name.Add(CompanyName);
-            IndexValue++;
+            Name.Add(WageHour * FullTime);
         }
 
 
@@ -94,18 +94,14 @@ namespace EmployeeWage
                     TotalHours += WorkingHours;
                 }
             }
-
-            Name.Add(Convert.ToString(TotalWage));
-            IndexValue++;
-
+                    Name.Add(TotalWage);
         }
 
         public void ViewWage()
         {
-
-            for (int i = 0; i <= Name.Count; i += 2)
+            for (int i = 0; i <= Name.Count; i += 3)
             {
-                Console.WriteLine("Monthly Wage for {0} is {1} ", Name[i], Name[i + 1]);
+                Console.WriteLine("Company: {0}\n Daily Wage: {1}\n Monthly Wage: {2}\n ", Name[i], Name[i + 1], Name[i + 2]);
             }
         }
     }
