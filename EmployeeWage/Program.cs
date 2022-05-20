@@ -55,8 +55,44 @@ namespace Employee
             int EmpWageDaily = Emphour * wagehour;
             Console.WriteLine("Wage of Employee is " + EmpWageDaily);
         }
-        public static void Main(String[] args)
+        public void Monthly()
         {
+            int DayNum = 1, EmpMonthly = 0;
+            while (DayNum <= 20)
+            {
+
+                Random TimeCheck = new Random();
+                int CheckTime = TimeCheck.Next(0, 3);
+                switch (CheckTime)
+                {
+                    case fulltime:
+                        Emphour = 8;
+
+                        break;
+
+                    case parttime:
+                        Emphour = 4;
+
+                        break;
+
+                    case absent:
+                        Emphour = 0;
+
+                        break;
+                }
+                int EmpWageDaily = Emphour * wagehour;
+                EmpMonthly += EmpWageDaily;
+                DayNum++;
+            }
+            int Wage = Emphour * wagehour;
+            Console.WriteLine("Monthly Wage is " + EmpMonthly);
+        }
+
+    
+    public static void Main(String[] args)
+        {
+            Console.WriteLine("Press 1 to check employee status\n Press 2 to find daily wage \n press 3 to check if employee is part time and wage" +
+                "\n Press 4 to find monthy wage");
             Program program = new Program();
             int choice = Convert.ToInt32(Console.ReadLine());
             switch (choice)
@@ -69,6 +105,9 @@ namespace Employee
                     break;
                 case 3:
                     program.PartTime();
+                    break;
+                case 4:
+                    program.Monthly();
                     break;
                 default:
                     Console.WriteLine("Invalid Choice");
