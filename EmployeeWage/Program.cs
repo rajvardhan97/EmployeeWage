@@ -11,7 +11,7 @@ namespace EmployeeWage
     {
         public static void Main(String[] args)
         {
-            TotalEmployeeWage EmployeeWage = new TotalEmployeeWage(4);
+            TotalEmployeeWage EmployeeWage = new TotalEmployeeWage();
 
             EmployeeWage.AddCompany("Reliance", 30, 10, 4, 100, 20);
             EmployeeWage.MonthlyWages("Reliance");
@@ -21,6 +21,7 @@ namespace EmployeeWage
             EmployeeWage.MonthlyWages("TCS");
             EmployeeWage.AddCompany("Accenture", 20, 8, 4, 100, 20);
             EmployeeWage.MonthlyWages("Accenture");
+            EmployeeWage.ViewWage();
 
         }
     }

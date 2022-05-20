@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace EmployeeWage
 {
@@ -40,30 +41,30 @@ namespace EmployeeWage
         public double DailyWage = 0;
         public double TotalWage = 0;
         Dictionary<String, Companies> Company = new Dictionary<string, Companies>();
-        public string[] Name;
+        public ArrayList Name;
         public int IndexValue = 0;
 
-        public TotalEmployeeWage(int number)
+        public TotalEmployeeWage()
         {
             Company = new Dictionary<string, Companies>();
-            Name = new string[2 * number];
+            Name = new ArrayList();
         }
 
         public void AddCompany(String CompanyName, int WageHour, int FullTime, int PartTime, int maxworkhour, int maxworkdays)
         {
             Companies companies = new Companies(CompanyName, WageHour, FullTime, PartTime, maxworkhour, maxworkdays);
             Company.Add(CompanyName, companies);
-            Name[IndexValue] = CompanyName;
+            Name.Add(CompanyName);
             IndexValue++;
-
         }
+
 
 
         public void MonthlyWages(string CompanyName)
         {
             Random Check = new Random();
             int days = 1, WorkingHours = 0, TotalHours = 0, Present = 1;
-            int status = Check.Next(0, 2);
+            int status = Check.Next(1, 3);
             if (status == Present)
             {
 
@@ -93,14 +94,16 @@ namespace EmployeeWage
                     TotalHours += WorkingHours;
                 }
             }
-            Name[IndexValue] = Convert.ToString(TotalWage);
+
+            Name.Add(Convert.ToString(TotalWage));
             IndexValue++;
 
         }
 
         public void ViewWage()
         {
-            for (int i = 0; i < Name.Length; i += 2)
+
+            for (int i = 0; i <= Name.Count; i += 2)
             {
                 Console.WriteLine("Monthly Wage for {0} is {1} ", Name[i], Name[i + 1]);
             }
