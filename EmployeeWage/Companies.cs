@@ -55,7 +55,6 @@ namespace EmployeeWage
             Companies companies = new Companies(CompanyName, WageHour, FullTime, PartTime, maxworkhour, maxworkdays);
             Company.Add(CompanyName, companies);
             Name.Add(CompanyName);
-            Name.Add(WageHour * FullTime);
         }
 
 
@@ -64,44 +63,46 @@ namespace EmployeeWage
         {
             Random Check = new Random();
             int days = 1, WorkingHours = 0, TotalHours = 0, Present = 1;
-            int status = Check.Next(1, 3);
+            int status = Check.Next(0, 2);
             if (status == Present)
-            {
-
                 if (!Company.ContainsKey(CompanyName))
                     throw new ArgumentNullException("Company not found");
-                Company.TryGetValue(CompanyName, value: out Companies? companies);
+            Company.TryGetValue(CompanyName, value: out Companies? companies);
 
-                while (days < companies.maxworkdays && TotalHours <= companies.maxworkhour)
+            while (days < companies.maxworkdays && TotalHours <= companies.maxworkhour)
+            {
+
+                int CheckTime = Check.Next(0, 3);
+                switch (CheckTime)
                 {
-
-                    int CheckTime = Check.Next(0, 3);
-                    switch (CheckTime)
-                    {
-                        case EmpAbsent:
-                            WorkingHours = 0;
-                            break;
-                        case EmpFullTime:
-                            WorkingHours = companies.FullTime;
-                            break;
-                        case EmpPartTime:
-                            WorkingHours = companies.PartTime;
-                            break;
-                    }
-                    DailyWage = WorkingHours * companies.WageHour;
-                    TotalWage += DailyWage;
-                    days++;
-                    TotalHours += WorkingHours;
+                    case EmpAbsent:
+                        WorkingHours = 0;
+                        break;
+                    case EmpFullTime:
+                        WorkingHours = companies.FullTime;
+                        break;
+                    case EmpPartTime:
+                        WorkingHours = companies.PartTime;
+                        break;
                 }
+                DailyWage = WorkingHours * companies.WageHour;
+                TotalWage += DailyWage;
+                days++;
+                TotalHours += WorkingHours;
             }
-                    Name.Add(TotalWage);
+            Name.Add(TotalWage);
         }
 
-        public void ViewWage()
+        public void Find(string CompanyName)
         {
-            for (int i = 0; i <= Name.Count; i += 3)
+            if (Name.Contains(CompanyName))
             {
-                Console.WriteLine("Company: {0}\n Daily Wage: {1}\n Monthly Wage: {2}\n ", Name[i], Name[i + 1], Name[i + 2]);
+                for (int i = Name.IndexOf(CompanyName); i <= Name.IndexOf(CompanyName); i++)
+                    Console.WriteLine("Comapny: {0} | Total Wage {1}", Name[i], Name[i + 1]);
+            }
+            else
+            {
+                Console.WriteLine("Company is not in the database");
             }
         }
     }
