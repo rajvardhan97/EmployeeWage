@@ -4,15 +4,9 @@ namespace Employee
 {
     public class Program
     {
-        public static void Main(String[] args)
-        {
-            Program program = new Program();
-            program.CheckEmployee();
-            program.DailyWage();
-        }
-
-        public int Present = 1;
-
+        public int Present = 1, Emphour;
+        public const int fulltime = 0, parttime = 1, absent = 2, wagehour = 20;
+      
         public void CheckEmployee()
         {
             Random check = new Random();
@@ -32,7 +26,42 @@ namespace Employee
         {
             int wage, dailywage = 20, hour = 8;
             wage = dailywage * hour;
-            Console.WriteLine("Wage is " + wage);
+            Console.WriteLine("Daily Wage is " + wage);
+        }
+        public void PartTime()
+        {
+            int Emphour = 0, wagehour = 20;
+
+
+                Random TimeCheck = new Random();
+                int CheckTime = TimeCheck.Next(0, 3);
+                switch (CheckTime)
+                {
+                    case fulltime:
+                        Emphour = 8;
+                    Console.Write("Employee is fulltime\n");
+                        break;
+
+                    case parttime:
+                        Emphour = 4;
+                    Console.Write("Employee is parttime\n");
+                    break;
+
+                    case absent:
+                        Emphour = 0;
+                    Console.Write("Employee is absent\n");
+                    break;
+                }
+                int EmpWageDaily = Emphour * wagehour;
+            Console.WriteLine("Wage of Employee is " + EmpWageDaily);
+            }
+        public static void Main(String[] args)
+        {
+            Program program = new Program();
+            program.CheckEmployee();
+            program.DailyWage();
+            program.PartTime();
         }
     }
+    
 }
