@@ -8,88 +8,84 @@ namespace EmployeeWage
 {
     internal class Company
     {
-        public int Present = 1, Emphour;
-        public const int fulltime = 0, parttime = 1, absent = 2, wagehour = 20;
-
-        public void CheckEmployee()
+        internal class Companies
         {
-            Random check = new Random();
-            int CheckEmp = check.Next(0, 2);
+            public int FullTime = 8;
+            public int PartTime = 4;
+            public int WageHour = 20;
+            public int maxworkhour = 100;
+            public int maxworkdays = 20;
+            public String CompanyName;
 
-            if (Present == CheckEmp)
+            public Companies(String CompanyName, int WageHour, int FullTime, int PartTime, int maxworkhour, int maxworkdays)
             {
-                Console.WriteLine("Employee is Present");
+                this.CompanyName = CompanyName;
+                this.WageHour = WageHour;
+                this.FullTime = FullTime;
+                this.PartTime = PartTime;
+                this.maxworkhour = maxworkhour;
+                this.maxworkdays = maxworkdays;
             }
-            else
+
+        }
+        public class TotalEmployeeWage
+        {
+            public const int EmpAbsent = 0;
+            public const int EmpFullTime = 1;
+            public const int EmpPartTime = 2;
+            public double DailyWage = 0;
+            public double TotalWage = 0;
+            Dictionary<String, Companies> Company = new Dictionary<string, Companies>();
+
+            public void AddCompany(String CompanyName, int WageHour, int FullTime, int PartTime, int maxworkhour, int maxworkdays)
             {
-                Console.WriteLine("Employee is Absent");
+                Companies companies = new Companies(CompanyName, WageHour, FullTime, PartTime, maxworkhour, maxworkdays);
+                Company.Add(CompanyName, companies);
             }
-        }
 
-        public void DailyWage()
-        {
-            int wage, dailywage = 20, hour = 8;
-            wage = dailywage * hour;
-            Console.WriteLine("Daily Wage is " + wage);
-        }
-        public void PartTime()
-        {
-            int Emphour = 0, wagehour = 20;
-
-
-            Random TimeCheck = new Random();
-            int CheckTime = TimeCheck.Next(0, 3);
-            switch (CheckTime)
+            public void MonthlyWages(string CompanyName)
             {
-                case fulltime:
-                    Emphour = 8;
-                    Console.Write("Employee is fulltime\n");
-                    break;
-
-                case parttime:
-                    Emphour = 4;
-                    Console.Write("Employee is parttime\n");
-                    break;
-
-                case absent:
-                    Emphour = 0;
-                    Console.Write("Employee is absent\n");
-                    break;
-            }
-            int EmpWageDaily = Emphour * wagehour;
-            Console.WriteLine("Wage of Employee is " + EmpWageDaily);
-        }
-        public void Monthly()
-        {
-            int DayNum = 1, Hours = 0, TotalHrs = 0, TotalWageDay = 0, MonthlyWage;
-            while (DayNum <= 20 || Hours <= 100)
-            {
-                Random TimeCheck = new Random();
-                int CheckTime = TimeCheck.Next(0, 3);
-                switch (CheckTime)
+                Random Check = new Random();
+                int days = 1, WorkingHours = 0, TotalHours = 0;
+                int status = Check.Next(0, 2);
+                if (status == 0)
                 {
-                    case fulltime:
-                        Emphour = 8;
+                    Console.WriteLine("\n Employee is present");
 
-                        break;
+                    if (!Company.ContainsKey(CompanyName))
+                        throw new ArgumentNullException("Company not found");
+                    Company.TryGetValue(CompanyName, value: out Companies? companies);
 
-                    case parttime:
-                        Emphour = 4;
+                    while (days <= companies.maxworkdays && TotalHours <= companies.maxworkhour)
+                    {
 
-                        break;
-
-                    case absent:
-                        Emphour = 0;
-
-                        break;
+                        int CheckTime = Check.Next(0, 3);
+                        switch (CheckTime)
+                        {
+                            case EmpAbsent:
+                                WorkingHours = 0;
+                                break;
+                            case EmpFullTime:
+                                WorkingHours = companies.FullTime;
+                                break;
+                            case EmpPartTime:
+                                WorkingHours = companies.PartTime;
+                                break;
+                        }
+                        DailyWage = WorkingHours * companies.WageHour;
+                        TotalWage += DailyWage;
+                        days++;
+                        TotalHours += WorkingHours;
+                    }
+                    Console.WriteLine("Comapny : " + CompanyName);
+                    Console.WriteLine("Total working days: " + days +
+                        " Total Working Hours: " + TotalHours + " Total Wage: " + TotalWage);
                 }
-                TotalWageDay = wagehour * Emphour;
-                Hours += TotalHrs;
-                DayNum++;
-
+                else
+                {
+                    Console.WriteLine("Employee is absent");
+                }
             }
-            MonthlyWage = Hours * TotalWageDay;
-            Console.WriteLine("Total Monthly Wage is " + MonthlyWage);
         }
     }
 }

@@ -1,40 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static EmployeeWage.Company;
 
 namespace EmployeeWage
 {
     public class Program
     {
-        
-
-
-
-
         public static void Main(String[] args)
         {
-            Console.WriteLine("Press 1 to check employee status\n Press 2 to find daily wage \n press 3 to check if employee is part time and wage" +
-                "\n Press 4 to find monthy wage");
-            Company company = new Company();
-            int choice = Convert.ToInt32(Console.ReadLine());
-            switch (choice)
-            {
-                case 1:
-                    company.CheckEmployee();
-                    break;
-                case 2:
-                    company.DailyWage();
-                    break;
-                case 3:
-                    company.PartTime();
-                    break;
-                case 4:
-                    company.Monthly();
-                    break;
-                default:
-                    Console.WriteLine("Invalid Choice");
-                    break;
-            }
-        }
+            TotalEmployeeWage EmployeeWage = new TotalEmployeeWage();
 
+            EmployeeWage.AddCompany("Reliance", 30, 10, 4, 100, 20);
+            EmployeeWage.MonthlyWages("Reliance");
+            EmployeeWage.AddCompany("Amazon", 25, 6, 4, 100, 20);
+            EmployeeWage.MonthlyWages("Amazon");
+            EmployeeWage.AddCompany("TCS", 20, 8, 4, 100, 20);
+            EmployeeWage.MonthlyWages("TCS");
+            EmployeeWage.AddCompany("Accenture", 20, 8, 4, 100, 20);
+            EmployeeWage.MonthlyWages("Accenture");
+
+        }
     }
     
 }
