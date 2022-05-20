@@ -25,7 +25,14 @@ namespace EmployeeWage
             this.maxworkdays = maxworkdays;
         }
     }
-    class TotalEmployeeWage
+    public interface ICompanyAdd
+    {
+        public void AddCompany(String CompanyName, int WageHour, int FullTime, int PartTime, int maxworkhour, int maxworkdays);
+        public void MonthlyWages(string CompanyName);
+    }
+
+
+    class TotalEmployeeWage : ICompanyAdd
     {
         public const int EmpAbsent = 0;
         public const int EmpFullTime = 1;
