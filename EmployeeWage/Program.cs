@@ -6,7 +6,7 @@ namespace Employee
     {
         public int Present = 1, Emphour;
         public const int fulltime = 0, parttime = 1, absent = 2, wagehour = 20;
-      
+
         public void CheckEmployee()
         {
             Random check = new Random();
@@ -33,35 +33,49 @@ namespace Employee
             int Emphour = 0, wagehour = 20;
 
 
-                Random TimeCheck = new Random();
-                int CheckTime = TimeCheck.Next(0, 3);
-                switch (CheckTime)
-                {
-                    case fulltime:
-                        Emphour = 8;
+            Random TimeCheck = new Random();
+            int CheckTime = TimeCheck.Next(0, 3);
+            switch (CheckTime)
+            {
+                case fulltime:
+                    Emphour = 8;
                     Console.Write("Employee is fulltime\n");
-                        break;
+                    break;
 
-                    case parttime:
-                        Emphour = 4;
+                case parttime:
+                    Emphour = 4;
                     Console.Write("Employee is parttime\n");
                     break;
 
-                    case absent:
-                        Emphour = 0;
+                case absent:
+                    Emphour = 0;
                     Console.Write("Employee is absent\n");
                     break;
-                }
-                int EmpWageDaily = Emphour * wagehour;
-            Console.WriteLine("Wage of Employee is " + EmpWageDaily);
             }
+            int EmpWageDaily = Emphour * wagehour;
+            Console.WriteLine("Wage of Employee is " + EmpWageDaily);
+        }
         public static void Main(String[] args)
         {
             Program program = new Program();
-            program.CheckEmployee();
-            program.DailyWage();
-            program.PartTime();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            switch (choice)
+            {
+                case 1:
+                    program.CheckEmployee();
+                    break;
+                case 2:
+                    program.DailyWage();
+                    break;
+                case 3:
+                    program.PartTime();
+                    break;
+                default:
+                    Console.WriteLine("Invalid Choice");
+                    break;
+            }
         }
+
     }
     
 }
